@@ -10,7 +10,7 @@ This repository is meant to demonstrate the power of modular notebooks to write 
 
 One of the goals of modular notebooks is that the entire methodology is self-documenting, so if you just want to see the color extraction business, jump into [Main.ipynb](./Main.ipynb).
 
-Modularity is important to writing robust software because it allows us to focus on individual parts of the whole. Dijkstra referred to this as XX.  
+Modularity is important to writing robust software because it allows us to focus on individual components at times and focus on how these components work together as a whole at other times.  
 
 You can understand the system as whole by reading the [Main.ipynb](./Main.ipynb) notebook. This Notebook merely orchestrates other notebooks to download and process our data. If you want to learn more about any individual step, you can read the notebooks which this one stitches together.
 
