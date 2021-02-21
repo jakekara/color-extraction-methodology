@@ -1,64 +1,49 @@
-# ColorBook
+![Image](./out/sample/no_background/no_background-sample.jpg.png)
 
-A color extraction project using modular notebooks
+# ColorBook  
 
-## Overview
+A color extraction project using modular notebooks  
 
-This repository of notebooks is used both the production data processing code as well as a live, interactive methodology document for a color analysis project by the Digital Humanities Lab at Yale.
+## Modular notebooks
 
-This code was originally used to process the entire Illuminated Books of William Blake, but this repository may be repurposed on any set of images.
+This repository is meant to demonstrate the power of modular notebooks to write robust, modular software entirely in notebooks.  
 
-## Modular Notebooks
+One of the goals of modular notebooks is that the entire methodology is self-documenting, so if you just want to see the color extraction business, jump into [Main.ipynb](./Main.ipynb).
 
-This repository makes extensive use of modular notebooks — that is, notebooks which are imported into other notebooks the same way a `.py` file would be. This is made possible by the the library [margo-loader](https://github.com/margo-notebooks/margo-loader-py), and this repository is intended to demonstrate the potentially for organizing software into modules without moving code from Notebooks into `.py` files.
+Modularity is important to writing robust software because it allows us to focus on individual parts of the whole. Dijkstra referred to this as XX.  
 
-A more conventional approach to writing this methodology would be to either write the entire thing in one giant notebook that might be hard to follow, or to externalize a large portion of it into `.py` files, which are not as fun!
+You can understand the system as whole by reading the [Main.ipynb](./Main.ipynb) notebook. This Notebook merely orchestrates other notebooks to download and process our data. If you want to learn more about any individual step, you can read the notebooks which this one stitches together.
 
-Because this methodology is written in modular notebooks, each component of the overall system is itself a standalone methodology document, so if you are only interested in one part of the code, you can focus on that. If you are interested in the entire methodology, being able to focus on individual components is useful to understanding the whole.
+For example, if you want to see how the background deletion process works, you can open [background_deletion/LightnessPixelFilter.ipynb](background_deletion/LightnessPixelFilter.ipynb) and see its code.  
 
-## Data processing tasks
+Typically, the code to filter pixels based on lightness would be written as a helper library in a `.py` file, but since we are using modular notebooks, this code is in a notebook, which means it has all of the rich documentation and sample outputs that you would expect in a notebook. The hope is that by keeping more of a methodology's code in notebooks, it's more accessible for anyone wishing to inspect it, reproduce, or learn from it in any way.
 
-There are four core tasks we need to accomplish. Because this project is organized in a modular fashion, you can jump to the parts that interest you. You can focus on the notebooks that interest you. You can jump into the notebooks for each color extraction algorithm and see how they work, or you can look at the notebooks that combine these components into the production data processign pipeline.
+Another benefit of this modular organization of notebooks is that no code gets left behind when we move from "scratch" code in notebooks to production code in `.py` files. That means all of the code we tried but didn't use is still up for inspection. We tried four different color extraction algorithms and only used one in production. You can see them all in the [color_extraction](./color_extraction) folder, as well as a head-to-head comparison in the notebook [color_extraction/CompareExtractorAlgorithms.ipynb](color_extraction/CompareExtractorAlgorithms.ipynb).
 
-### Download data
+## Margo
 
-In this stage we download a sample data set -- all of the images in the Metropolitan Museum of Art's API that appear to be created by William Blake.  
+This repository makes extensive use of the the library [margo-loader](https://github.com/margo-notebooks/margo-loader-py) to implement modular notebooks.  
 
-Notebooks for perfoming the data acquisition are found in the `data_acuisition` folder.
+Margo was developed by Jake Kara, as a part of a software engineering thesis research project. This modular notebook collection is part of that thesis as well.  
 
-Here's an original input image. Note the very light area of paper around the edge. 
+Because notebooks include code that you might not want to import when you're treating it as a module, Margo lets you mark cells to be ignored during import. Margo can be used for many other things, but that's its role in this repository. You may see code like:
 
-<img src="out/original/original-jerusalem.mpi.p22-51.100.jpg.png">
-
-### Background deletion
-
-In this stage we take a single image and "delete" any pixels that fall below a certain lightness threshold based on the pixel's HLS colorspace representation. By delete we actually just set their alpha channel to zero.  
-
-Notebooks for performing this background deletion are in the `background_deletion` folder.
-
-Here's an image after performing background deletion. Note that light paper area is gone.
-
-<img src="out/no_background/no_background-jerusalem.mpi.p22-51.100.jpg.png">
-
-### Extract color palette
-
-In this stage we take an image that has had background pixels deleted and generate a summary palette for the image. We implement this approach using several different algorithms, so that the researcher can choose which one they prefer. Because this collection of notebooks is written as modules, these color palette extractors are all interchangeable, and even though we only used one algorithm, the code for all of the algorithms we tried is accessible in Notebooks.
-
-Notebooks for performing color palette extraction are in the `color_extraction` folder.
-
-The color palette we extract from an image looks like this. It is a JSON object where each key is an color represented as an RGB value, and each value is the count of pixels that were clustered into this bin of pixels. This allows us to constrct proprotional color palettes for each image.
-
-```javascript
-{"rgb(73,37,28)": 10, "rgb(150,67,42)": 27, "rgb(191,104,56)": 21, "rgb(96,82,92)": 1061, "rgb(184,55,57)": 80, "rgb(111,98,109)": 397, "rgb(151,44,48)": 619, "rgb(90,77,76)": 6630, "rgb(105,93,88)": 4306, "rgb(154,136,141)": 256, "rgb(103,74,72)": 17643, "rgb(48,17,39)": 3419, "rgb(66,25,45)": 4625, "rgb(167,150,135)": 1116, "rgb(122,87,80)": 22984, "rgb(127,111,102)": 5494, "rgb(78,54,60)": 38068, "rgb(152,114,101)": 23375, "rgb(193,152,129)": 8064}
+```python
+import margo_loader
 ```
 
-When we use the summary palette to reconstruct an image, it looks like this:
+By including this line a Notebook, you can import other Notebook files as if they were `.py` modules.
 
-<img src="out/quantized/quantized-jerusalem.mpi.p22-51.100.jpg.png">
+You might also see code like this at the top of a cell:
 
+```python
+# :: ignore-cell ::
+```
 
-### Process all of the images
+That means `margo_loader` will ignore that cell during import.
 
-In this stage we use the background deletion and color extraction components to create a complete data processing pipeline to process all of the images in our sample data set. We create one notebook to process a single image, and then we call the function defined in that notebook on every image in the sample data set.
+## Color extraction  
 
-Notebooks for performing the data processing are in the `data_processing` folder.
+The methods for background deletion and color extraction implemented in these notebooks were originally written for an experiment of the Yale Digital Humanities Lab, where Jake works as a developer. These methods were adapted as modular notebooks for this repository in order to demonstrate the utility of modular notebooks to document a robust software methodology in Notebooks alone.  
+
+Images in this repository, both the sample image and those which are downloaded when the code is run, are in the public domain.  
