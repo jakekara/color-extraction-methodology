@@ -42,8 +42,8 @@ You might also see code like this at the top of a cell:
 
 That means `margo_loader` will ignore that cell during import.
 
-## Color extraction  
+## Color extraction project origins  
 
-The methods for background deletion and color extraction implemented in these notebooks were originally written for an experiment of the Yale Digital Humanities Lab, where Jake works as a developer. These methods were adapted as modular notebooks for this repository in order to demonstrate the utility of modular notebooks to document a robust software methodology in Notebooks alone.  
+The methods for background deletion and color extraction implemented in these notebooks were originally written for an experiment of the [Yale Digital Humanities Lab](https://dhlab.yale.edu/). These methods were adapted as modular notebooks for this repository in order to demonstrate the utility of modular notebooks to document a robust software methodology in Notebooks alone.  
 
 Images in this repository, both the sample image and those which are downloaded when the code is run, are in the public domain.  
