@@ -2,7 +2,15 @@
 
 # ColorBook  
 
-A color extraction project using modular notebooks  
+A color extraction project using modular notebooks
+
+## How to use
+
+The DOI for this repository is via Zenodo:
+
+[![DOI](https://zenodo.org/badge/335694537.svg)](https://zenodo.org/badge/latestdoi/335694537)
+
+To run in Binder, go [here](https://mybinder.org/v2/zenodo/10.5281/zenodo.4554402/)
 
 ## Modular notebooks
 
