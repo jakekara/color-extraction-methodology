@@ -7,7 +7,7 @@ bleach==3.3.0
 certifi==2020.12.5
 cffi==1.14.4
 chardet==4.0.0
--e git://github.com/jakekara/color-thief-py@dc2f9629b373209c9fa39715a96145dd191a444c#egg=colorthief
+-e git+https://github.com/jakekara/color-thief-py@dc2f9629b373209c9fa39715a96145dd191a444c#egg=colorthief
 decorator==4.4.2
 defusedxml==0.6.0
 dill==0.3.3
