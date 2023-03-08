@@ -8,9 +8,9 @@ A color extraction project using modular notebooks
 
 The DOI for this repository is via Zenodo:
 
-[![DOI](https://zenodo.org/badge/335694537.svg)](https://zenodo.org/badge/latestdoi/335694537)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7709475.svg)](https://doi.org/10.5281/zenodo.7709475)
 
-To run in Binder, go [here](https://mybinder.org/v2/zenodo/10.5281/zenodo.4554402/)
+To run in Binder, go [here](https://mybinder.org/v2/zenodo/10.5281/zenodo.7709475/)
 
 ## Modular notebooks
 
